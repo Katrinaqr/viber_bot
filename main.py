@@ -27,6 +27,7 @@ formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(messag
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
+# account_info = viber.get_account_info()
 
 @app.route('/', methods=['POST'])
 def incoming():
@@ -39,7 +40,8 @@ def incoming():
     viber_request = viber.parse_request(request.get_data())
 
     if isinstance(viber_request, ViberMessageRequest):
-        message = viber_request.message
+        # message = viber_request.message
+        message = TextMessage(text="sample message")
         # lets echo back
         viber.send_messages(viber_request.sender.id, [
             message
@@ -55,7 +57,8 @@ def incoming():
 
 
 if __name__ == "__main__":
-    app.run(port=443)
+    # context = ('server.crt', 'server.key')
+    app.run(port=5000, debug=True)
 
 # @app.route('/')
 # def hello_world():
